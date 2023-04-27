@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -129,14 +130,18 @@ func main() {
 						case <-done:
 							return
 						}
+					} else {
+						log.Printf("Фильтрация отрицательного числа: %d", data)
 					}
 				case <-done:
 					return
 				}
 			}
 		}()
+
 		return convertedIntChan
 	}
+
 	// Стадия, фильтрующая числа, не кратные 3
 	specialFilterStageInt := func(done <-chan bool, c <-chan int) <-chan int {
 		filteredIntChan := make(chan int)
@@ -150,6 +155,8 @@ func main() {
 						case <-done:
 							return
 						}
+					} else {
+						log.Printf("Фильтрация числа не кратного 3: %d", data)
 					}
 				case <-done:
 					return
